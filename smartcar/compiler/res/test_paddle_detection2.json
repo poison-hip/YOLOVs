@@ -1,0 +1,18 @@
+[
+    {
+        "image_path": "/root/yolov3_mobilenet320/output/image",
+        "extension": "npy",
+        "mean": [
+            1,
+            1,
+            1
+        ],
+        "input_scale": [
+            1,
+            1,
+            1
+        ],
+        "name": "image",
+        "layout": "NCHW"
+    }
+]

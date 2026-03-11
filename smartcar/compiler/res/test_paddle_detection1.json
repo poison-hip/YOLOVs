@@ -1,0 +1,46 @@
+[
+    {
+        "image_path": "/home/yongzhen/work/compiler/huigu/output/im_shape",
+        "extension": "npy",
+        "mean": [
+            1,
+            1
+        ],
+        "input_scale": [
+            1,
+            1
+        ],
+        "name": "im_shape",
+        "layout": "NC"
+    },
+    {
+        "image_path": "/home/yongzhen/work/compiler/huigu/output/image",
+        "extension": "npy",
+        "mean": [
+            1,
+            1,
+            1
+        ],
+        "input_scale": [
+            1,
+            1,
+            1
+        ],
+        "name": "image",
+        "layout": "NCHW"
+    },
+    {
+        "image_path": "/home/yongzhen/work/compiler/huigu/output/scale_factor",
+        "extension": "npy",
+        "mean": [
+            1,
+            1
+        ],
+        "input_scale": [
+            1,
+            1
+        ],
+        "name": "scale_factor",
+        "layout": "NC"
+    }
+]

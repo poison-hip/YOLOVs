@@ -1,0 +1,5 @@
+{
+    "model_dir": "/home/yolov3_mobilenet320_coco",
+    "shape": "[320, 320]",
+    "split": true
+}
