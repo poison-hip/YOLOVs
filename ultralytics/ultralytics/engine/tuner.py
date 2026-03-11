@@ -17,6 +17,7 @@ Examples:
 from __future__ import annotations
 
 import gc
+import os
 import random
 import shutil
 import subprocess
@@ -72,7 +73,7 @@ class Tuner:
         >>>     data="coco8.yaml",
         >>>     epochs=10,
         >>>     iterations=300,
-        >>>     mongodb_uri="mongodb+srv://user:pass@cluster.mongodb.net/",
+        >>>     mongodb_uri=os.environ["MONGODB_URI"],
         >>>     mongodb_db="ultralytics",
         >>>     mongodb_collection="tune_results"
         >>> )
@@ -139,11 +140,12 @@ class Tuner:
             f"{self.prefix}💡 Learn about tuning at https://docs.ultralytics.com/guides/hyperparameter-tuning"
         )
 
-    def _connect(self, uri: str = "mongodb+srv://username:password@cluster.mongodb.net/", max_retries: int = 3):
+    def _connect(self, uri: str | None = None, max_retries: int = 3):
         """Create MongoDB client with exponential backoff retry on connection failures.
 
         Args:
-            uri (str): MongoDB connection string with credentials and cluster information.
+            uri (str | None): MongoDB connection string with credentials and cluster information.
+                If None, reads from MONGODB_URI environment variable.
             max_retries (int): Maximum number of connection attempts before giving up.
 
         Returns:
@@ -153,6 +155,10 @@ class Tuner:
 
         from pymongo import MongoClient
         from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
+
+        uri = uri or os.getenv("MONGODB_URI")
+        if not uri:
+            raise ValueError("MongoDB URI is required. Pass `mongodb_uri` or set environment variable `MONGODB_URI`.")
 
         for attempt in range(max_retries):
             try:
@@ -186,7 +192,7 @@ class Tuner:
         saves results to a shared collection and reads the latest best hyperparameters from all workers for evolution.
 
         Args:
-            mongodb_uri (str): MongoDB connection string, e.g. 'mongodb+srv://username:password@cluster.mongodb.net/'.
+            mongodb_uri (str): MongoDB connection string, e.g. from environment variable `MONGODB_URI`.
             mongodb_db (str, optional): Database name.
             mongodb_collection (str, optional): Collection name.
 
